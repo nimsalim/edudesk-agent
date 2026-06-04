@@ -1,0 +1,212 @@
+openapi: 3.0.0
+info:
+  title: EduDesk IT Agent API
+  description: Charter school IT helpdesk API for device lookups, staff account status, and ticket management.
+  version: 1.0.0
+servers:
+  - url: https://your-ngrok-url.ngrok-free.app
+    description: EduDesk MCP Server (ngrok)
+
+paths:
+  /devices:
+    get:
+      operationId: getDevices
+      summary: Look up device status
+      description: Returns device information. Filter by serial number or assigned user.
+      parameters:
+        - name: serial
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Device serial number
+        - name: assigned_to
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Name or email of staff member the device is assigned to
+      responses:
+        "200":
+          description: List of matching devices
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Device"
+        "404":
+          description: No devices found
+
+  /users:
+    get:
+      operationId: getUsers
+      summary: Check staff account status
+      description: Returns account status, license info, and last login for a staff member.
+      parameters:
+        - name: name
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Staff member display name
+        - name: email
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Staff member email address
+      responses:
+        "200":
+          description: List of matching staff accounts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/StaffAccount"
+        "404":
+          description: No users found
+
+  /tickets:
+    get:
+      operationId: getTickets
+      summary: List IT support tickets
+      description: Returns open or recent IT tickets. Filter by status or staff name.
+      parameters:
+        - name: status
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [Open, In Progress, Resolved, Closed]
+          description: Filter tickets by status
+        - name: staff_name
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filter tickets submitted by a specific staff member
+      responses:
+        "200":
+          description: List of matching tickets
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Ticket"
+
+    post:
+      operationId: createTicket
+      summary: Submit a new IT support ticket
+      description: Creates a new helpdesk ticket for an IT issue reported by staff.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewTicket"
+      responses:
+        "201":
+          description: Ticket created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Ticket"
+
+components:
+  schemas:
+    Device:
+      type: object
+      properties:
+        device_id:
+          type: string
+          example: CHR-001
+        serial:
+          type: string
+          example: 5XJ9K2L
+        type:
+          type: string
+          example: Chromebook
+        status:
+          type: string
+          enum: [Active, Deprovisioned, In Repair, Lost]
+          example: Active
+        assigned_to:
+          type: string
+          example: Sarah Johnson
+        location:
+          type: string
+          example: Room 204
+
+    StaffAccount:
+      type: object
+      properties:
+        display_name:
+          type: string
+          example: James Rivera
+        email:
+          type: string
+          example: james.rivera@school.edu
+        license_status:
+          type: string
+          enum: [Licensed, Unlicensed, Suspended]
+          example: Licensed
+        account_status:
+          type: string
+          enum: [Active, Disabled, Locked]
+          example: Active
+        last_login:
+          type: string
+          format: date
+          example: "2026-06-02"
+        department:
+          type: string
+          example: Administration
+
+    Ticket:
+      type: object
+      properties:
+        ticket_id:
+          type: string
+          example: TKT-001
+        staff_name:
+          type: string
+          example: Maria Gonzalez
+        issue_category:
+          type: string
+          enum: [Connectivity, Login, Hardware, Software, Account, Other]
+          example: Connectivity
+        description:
+          type: string
+          example: Chromebook won't connect to school WiFi
+        status:
+          type: string
+          enum: [Open, In Progress, Resolved, Closed]
+          example: Open
+        created_date:
+          type: string
+          format: date
+          example: "2026-06-04"
+        assigned_to:
+          type: string
+          example: IT Team
+
+    NewTicket:
+      type: object
+      required:
+        - staff_name
+        - issue_category
+        - description
+      properties:
+        staff_name:
+          type: string
+          example: Maria Gonzalez
+        issue_category:
+          type: string
+          enum: [Connectivity, Login, Hardware, Software, Account, Other]
+          example: Connectivity
+        description:
+          type: string
+          example: Chromebook won't connect to school WiFi

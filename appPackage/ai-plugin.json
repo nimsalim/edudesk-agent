@@ -1,0 +1,69 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/copilot/plugin/v2.4/schema.json",
+    "schema_version": "v2.4",
+    "name_for_human": "EduDesk IT Agent API",
+    "description_for_human": "Charter school IT helpdesk API for device lookups, staff account status, and ticket management.",
+    "description_for_model": "Charter school IT helpdesk API for device lookups, staff account status, and ticket management.",
+    "contact_email": "publisher-email@example.com",
+    "namespace": "edudeskagent",
+    "capabilities": {},
+    "functions": [
+        {
+            "name": "createTicket",
+            "description": "Creates a new helpdesk ticket for an IT issue reported by staff."
+        },
+        {
+            "name": "getDevices",
+            "description": "Returns device information. Filter by serial number or assigned user.",
+            "capabilities": {
+                "response_semantics": {
+                    "data_path": "$",
+                    "static_template": {
+                        "file": "./adaptiveCards/getDevices.json"
+                    }
+                }
+            }
+        },
+        {
+            "name": "getTickets",
+            "description": "Returns open or recent IT tickets. Filter by status or staff name.",
+            "capabilities": {
+                "response_semantics": {
+                    "data_path": "$",
+                    "static_template": {
+                        "file": "./adaptiveCards/getTickets.json"
+                    }
+                }
+            }
+        },
+        {
+            "name": "getUsers",
+            "description": "Returns account status, license info, and last login for a staff member.",
+            "capabilities": {
+                "response_semantics": {
+                    "data_path": "$",
+                    "static_template": {
+                        "file": "./adaptiveCards/getUsers.json"
+                    }
+                }
+            }
+        }
+    ],
+    "runtimes": [
+        {
+            "type": "OpenApi",
+            "auth": {
+                "type": "None"
+            },
+            "spec": {
+                "url": "apiSpecificationFile/openapi.yaml"
+            },
+            "run_for_functions": [
+                "getDevices",
+                "getUsers",
+                "getTickets",
+                "createTicket"
+            ]
+        }
+    ]
+}

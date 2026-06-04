@@ -1,0 +1,256 @@
+openapi: 3.0.4
+info:
+  title: EduDesk IT Agent API - Subset
+  description: 'Charter school IT helpdesk API for device lookups, staff account status, and ticket management.'
+  version: 1.0.0
+servers:
+  - url: https://your-ngrok-url.ngrok-free.app
+    description: EduDesk MCP Server (ngrok)
+paths:
+  /devices:
+    get:
+      summary: Look up device status
+      description: Returns device information. Filter by serial number or assigned user.
+      operationId: getDevices
+      parameters:
+        - name: serial
+          in: query
+          description: Device serial number
+          explode: false
+          schema:
+            type: string
+        - name: assigned_to
+          in: query
+          description: Name or email of staff member the device is assigned to
+          explode: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of matching devices
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    device_id:
+                      type: string
+                      example: CHR-001
+                    serial:
+                      type: string
+                      example: 5XJ9K2L
+                    type:
+                      type: string
+                      example: Chromebook
+                    status:
+                      enum:
+                        - Active
+                        - Deprovisioned
+                        - In Repair
+                        - Lost
+                      type: string
+                      example: Active
+                    assigned_to:
+                      type: string
+                      example: Sarah Johnson
+                    location:
+                      type: string
+                      example: Room 204
+  /users:
+    get:
+      summary: Check staff account status
+      description: 'Returns account status, license info, and last login for a staff member.'
+      operationId: getUsers
+      parameters:
+        - name: name
+          in: query
+          description: Staff member display name
+          explode: false
+          schema:
+            type: string
+        - name: email
+          in: query
+          description: Staff member email address
+          explode: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of matching staff accounts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    display_name:
+                      type: string
+                      example: James Rivera
+                    email:
+                      type: string
+                      example: james.rivera@school.edu
+                    license_status:
+                      enum:
+                        - Licensed
+                        - Unlicensed
+                        - Suspended
+                      type: string
+                      example: Licensed
+                    account_status:
+                      enum:
+                        - Active
+                        - Disabled
+                        - Locked
+                      type: string
+                      example: Active
+                    last_login:
+                      type: string
+                      format: date
+                      example: '2026-06-02'
+                    department:
+                      type: string
+                      example: Administration
+  /tickets:
+    get:
+      summary: List IT support tickets
+      description: Returns open or recent IT tickets. Filter by status or staff name.
+      operationId: getTickets
+      parameters:
+        - name: status
+          in: query
+          description: Filter tickets by status
+          explode: false
+          schema:
+            enum:
+              - Open
+              - In Progress
+              - Resolved
+              - Closed
+            type: string
+        - name: staff_name
+          in: query
+          description: Filter tickets submitted by a specific staff member
+          explode: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of matching tickets
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    ticket_id:
+                      type: string
+                      example: TKT-001
+                    staff_name:
+                      type: string
+                      example: Maria Gonzalez
+                    issue_category:
+                      enum:
+                        - Connectivity
+                        - Login
+                        - Hardware
+                        - Software
+                        - Account
+                        - Other
+                      type: string
+                      example: Connectivity
+                    description:
+                      type: string
+                      example: Chromebook won't connect to school WiFi
+                    status:
+                      enum:
+                        - Open
+                        - In Progress
+                        - Resolved
+                        - Closed
+                      type: string
+                      example: Open
+                    created_date:
+                      type: string
+                      format: date
+                      example: '2026-06-04'
+                    assigned_to:
+                      type: string
+                      example: IT Team
+    post:
+      summary: Submit a new IT support ticket
+      description: Creates a new helpdesk ticket for an IT issue reported by staff.
+      operationId: createTicket
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - staff_name
+                - issue_category
+                - description
+              type: object
+              properties:
+                staff_name:
+                  type: string
+                  example: Maria Gonzalez
+                issue_category:
+                  enum:
+                    - Connectivity
+                    - Login
+                    - Hardware
+                    - Software
+                    - Account
+                    - Other
+                  type: string
+                  example: Connectivity
+                description:
+                  type: string
+                  example: Chromebook won't connect to school WiFi
+        required: true
+      responses:
+        '201':
+          description: Ticket created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ticket_id:
+                    type: string
+                    example: TKT-001
+                  staff_name:
+                    type: string
+                    example: Maria Gonzalez
+                  issue_category:
+                    enum:
+                      - Connectivity
+                      - Login
+                      - Hardware
+                      - Software
+                      - Account
+                      - Other
+                    type: string
+                    example: Connectivity
+                  description:
+                    type: string
+                    example: Chromebook won't connect to school WiFi
+                  status:
+                    enum:
+                      - Open
+                      - In Progress
+                      - Resolved
+                      - Closed
+                    type: string
+                    example: Open
+                  created_date:
+                    type: string
+                    format: date
+                    example: '2026-06-04'
+                  assigned_to:
+                    type: string
+                    example: IT Team
+components: { }
