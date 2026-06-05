@@ -1,0 +1,321 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/copilot/plugin/v2.4/schema.json",
+    "schema_version": "v2.4",
+    "name_for_human": "EduDesk IT Agent API",
+    "description_for_human": "Charter school IT helpdesk API for device lookups, staff account status, and ticket management.",
+    "description_for_model": "Use this API to help charter school staff with IT issues. Call getDevices to look up device status by serial number or staff name. Call getUsers to check account status, license, and last login. Call getTickets to list open tickets. Call createTicket to submit a new IT support ticket on behalf of a staff member.",
+    "contact_email": "nimaga.isc@gmail.com",
+    "namespace": "edudeskagent",
+    "capabilities": {},
+    "functions": [
+        {
+            "name": "createTicket",
+            "description": "Creates a new helpdesk ticket for an IT issue reported by staff."
+        },
+        {
+            "name": "getDevices",
+            "description": "Returns device information. Filter by serial number or assigned user.",
+            "capabilities": {
+                "response_semantics": {
+                    "data_path": "$",
+                    "static_template": {
+                        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                        "type": "AdaptiveCard",
+                        "version": "1.0",
+                        "body": [
+                            {
+                                "type": "Container",
+                                "items": [
+                                    {
+                                        "type": "TextBlock",
+                                        "text": "This is your adaptive card template",
+                                        "weight": "bolder",
+                                        "size": "medium"
+                                    },
+                                    {
+                                        "type": "ColumnSet",
+                                        "columns": [
+                                            {
+                                                "type": "Column",
+                                                "width": "auto",
+                                                "items": [
+                                                    {
+                                                        "type": "Image",
+                                                        "url": "https://github.com/microsoft/kiota/blob/main/vscode/packages/microsoft-kiota/images/logo.png?raw=true",
+                                                        "altText": "Kiota logo",
+                                                        "size": "medium",
+                                                        "style": "person"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "type": "Column",
+                                                "width": "auto",
+                                                "items": [
+                                                    {
+                                                        "type": "TextBlock",
+                                                        "text": "Adaptive Card",
+                                                        "weight": "bolder",
+                                                        "wrap": true
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Container",
+                                "items": [
+                                    {
+                                        "type": "TextBlock",
+                                        "text": "Now that we have defined the adaptive card template, one can go to the plugin manifest file and edit it to create a card that displays the relevant information for their users.",
+                                        "wrap": true
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "ColumnSet",
+                                "columns": [
+                                    {
+                                        "type": "Column",
+                                        "width": "auto",
+                                        "items": [
+                                            {
+                                                "type": "TextBlock",
+                                                "horizontalAlignment": "center",
+                                                "text": "Learn about [Adaptive Cards](https://adaptivecards.io/)",
+                                                "wrap": true
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "Column",
+                                        "width": "auto",
+                                        "items": [
+                                            {
+                                                "type": "TextBlock",
+                                                "horizontalAlignment": "center",
+                                                "text": "Learn about [API Plugin for Microsoft 365 Copilot](https://learn.microsoft.com/en-us/microsoft-365-copilot/extensibility/overview-api-plugins)",
+                                                "wrap": true
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "name": "getTickets",
+            "description": "Returns open or recent IT tickets. Filter by status or staff name.",
+            "capabilities": {
+                "response_semantics": {
+                    "data_path": "$",
+                    "static_template": {
+                        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                        "type": "AdaptiveCard",
+                        "version": "1.0",
+                        "body": [
+                            {
+                                "type": "Container",
+                                "items": [
+                                    {
+                                        "type": "TextBlock",
+                                        "text": "This is your adaptive card template",
+                                        "weight": "bolder",
+                                        "size": "medium"
+                                    },
+                                    {
+                                        "type": "ColumnSet",
+                                        "columns": [
+                                            {
+                                                "type": "Column",
+                                                "width": "auto",
+                                                "items": [
+                                                    {
+                                                        "type": "Image",
+                                                        "url": "https://github.com/microsoft/kiota/blob/main/vscode/packages/microsoft-kiota/images/logo.png?raw=true",
+                                                        "altText": "Kiota logo",
+                                                        "size": "medium",
+                                                        "style": "person"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "type": "Column",
+                                                "width": "auto",
+                                                "items": [
+                                                    {
+                                                        "type": "TextBlock",
+                                                        "text": "Adaptive Card",
+                                                        "weight": "bolder",
+                                                        "wrap": true
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Container",
+                                "items": [
+                                    {
+                                        "type": "TextBlock",
+                                        "text": "Now that we have defined the adaptive card template, one can go to the plugin manifest file and edit it to create a card that displays the relevant information for their users.",
+                                        "wrap": true
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "ColumnSet",
+                                "columns": [
+                                    {
+                                        "type": "Column",
+                                        "width": "auto",
+                                        "items": [
+                                            {
+                                                "type": "TextBlock",
+                                                "horizontalAlignment": "center",
+                                                "text": "Learn about [Adaptive Cards](https://adaptivecards.io/)",
+                                                "wrap": true
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "Column",
+                                        "width": "auto",
+                                        "items": [
+                                            {
+                                                "type": "TextBlock",
+                                                "horizontalAlignment": "center",
+                                                "text": "Learn about [API Plugin for Microsoft 365 Copilot](https://learn.microsoft.com/en-us/microsoft-365-copilot/extensibility/overview-api-plugins)",
+                                                "wrap": true
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "name": "getUsers",
+            "description": "Returns account status, license info, and last login for a staff member.",
+            "capabilities": {
+                "response_semantics": {
+                    "data_path": "$",
+                    "static_template": {
+                        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                        "type": "AdaptiveCard",
+                        "version": "1.0",
+                        "body": [
+                            {
+                                "type": "Container",
+                                "items": [
+                                    {
+                                        "type": "TextBlock",
+                                        "text": "This is your adaptive card template",
+                                        "weight": "bolder",
+                                        "size": "medium"
+                                    },
+                                    {
+                                        "type": "ColumnSet",
+                                        "columns": [
+                                            {
+                                                "type": "Column",
+                                                "width": "auto",
+                                                "items": [
+                                                    {
+                                                        "type": "Image",
+                                                        "url": "https://github.com/microsoft/kiota/blob/main/vscode/packages/microsoft-kiota/images/logo.png?raw=true",
+                                                        "altText": "Kiota logo",
+                                                        "size": "medium",
+                                                        "style": "person"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "type": "Column",
+                                                "width": "auto",
+                                                "items": [
+                                                    {
+                                                        "type": "TextBlock",
+                                                        "text": "Adaptive Card",
+                                                        "weight": "bolder",
+                                                        "wrap": true
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "Container",
+                                "items": [
+                                    {
+                                        "type": "TextBlock",
+                                        "text": "Now that we have defined the adaptive card template, one can go to the plugin manifest file and edit it to create a card that displays the relevant information for their users.",
+                                        "wrap": true
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "ColumnSet",
+                                "columns": [
+                                    {
+                                        "type": "Column",
+                                        "width": "auto",
+                                        "items": [
+                                            {
+                                                "type": "TextBlock",
+                                                "horizontalAlignment": "center",
+                                                "text": "Learn about [Adaptive Cards](https://adaptivecards.io/)",
+                                                "wrap": true
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "Column",
+                                        "width": "auto",
+                                        "items": [
+                                            {
+                                                "type": "TextBlock",
+                                                "horizontalAlignment": "center",
+                                                "text": "Learn about [API Plugin for Microsoft 365 Copilot](https://learn.microsoft.com/en-us/microsoft-365-copilot/extensibility/overview-api-plugins)",
+                                                "wrap": true
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    ],
+    "runtimes": [
+        {
+            "type": "OpenApi",
+            "auth": {
+                "type": "None"
+            },
+            "spec": {
+                "url": "apiSpecificationFile/openapi.yaml"
+            },
+            "run_for_functions": [
+                "getDevices",
+                "getUsers",
+                "getTickets",
+                "createTicket"
+            ]
+        }
+    ]
+}
