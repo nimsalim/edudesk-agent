@@ -3,8 +3,8 @@
     "schema_version": "v2.4",
     "name_for_human": "EduDesk IT Agent API",
     "description_for_human": "Charter school IT helpdesk API for device lookups, staff account status, and ticket management.",
-    "description_for_model": "Charter school IT helpdesk API for device lookups, staff account status, and ticket management.",
-    "contact_email": "publisher-email@example.com",
+    "description_for_model": "Use this API to help charter school staff with IT issues. Call getDevices to look up device status by serial number or staff name. Call getUsers to check account status, license, and last login. Call getTickets to list open tickets. Call createTicket to submit a new IT support ticket on behalf of a staff member.",
+    "contact_email": "nimaga.isc@gmail.com",
     "namespace": "edudeskagent",
     "capabilities": {},
     "functions": [

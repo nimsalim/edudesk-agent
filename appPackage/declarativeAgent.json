@@ -1,8 +1,8 @@
 {
     "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.7/schema.json",
     "version": "v1.7",
-    "name": "edudesk-agent",
-    "description": "Declarative agent created with Microsoft 365 Agents Toolkit can assist user in calling APIs and retrieving responses",
+    "name": "EduDesk",
+    "description": "Charter school IT helpdesk agent. Look up devices, check staff accounts, and submit IT support tickets — all from Microsoft 365 Copilot Chat.",
     "instructions": "$[file('instruction.txt')]",
     "actions": [
         {
@@ -12,16 +12,16 @@
     ],
     "conversation_starters": [
         {
-            "text": "Look up device status"
+            "text": "My Chromebook won't connect to WiFi"
         },
         {
-            "text": "List IT support tickets"
+            "text": "Is my device provisioned?"
         },
         {
-            "text": "Submit a new IT support ticket"
+            "text": "Submit an IT support ticket"
         },
         {
-            "text": "Check staff account status"
+            "text": "Check my account status"
         }
     ]
 }

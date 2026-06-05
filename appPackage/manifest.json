@@ -4,27 +4,27 @@
     "version": "1.0.0",
     "id": "${{TEAMS_APP_ID}}",
     "developer": {
-        "name": "My App, Inc.",
-        "websiteUrl": "https://www.example.com",
-        "privacyUrl": "https://www.example.com/privacy",
-        "termsOfUseUrl": "https://www.example.com/termofuse"
+        "name": "Souleymane Nimaga",
+        "websiteUrl": "https://github.com/nimsalim/edudesk-agent",
+        "privacyUrl": "https://github.com/nimsalim/edudesk-agent",
+        "termsOfUseUrl": "https://github.com/nimsalim/edudesk-agent"
     },
     "icons": {
         "color": "color.png",
         "outline": "outline.png"
     },
     "name": {
-        "short": "edudesk-agent${{APP_NAME_SUFFIX}}",
-        "full": "Full name for edudesk-agent"
+        "short": "EduDesk${{APP_NAME_SUFFIX}}",
+        "full": "EduDesk — Charter School IT Helpdesk Agent"
     },
     "description": {
-        "short": "Short description for edudesk-agent",
-        "full": "Full description for edudesk-agent"
+        "short": "IT helpdesk agent for charter school staff",
+        "full": "EduDesk is a Microsoft 365 Copilot declarative agent that helps charter school staff resolve IT issues instantly. Look up device status, check account health, and submit support tickets — all from Copilot Chat."
     },
-    "accentColor": "#FFFFFF",
+    "accentColor": "#0078D4",
     "supportsChannelFeatures": "tier1",
     "copilotAgents": {
-        "declarativeAgents": [            
+        "declarativeAgents": [
             {
                 "id": "declarativeAgent",
                 "file": "declarativeAgent.json"

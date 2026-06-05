@@ -1,0 +1,29 @@
+[
+  {
+    "ticket_id": "TKT-001",
+    "staff_name": "Sarah Johnson",
+    "issue_category": "Connectivity",
+    "description": "Chromebook won't connect to school WiFi in Room 204",
+    "status": "Open",
+    "created_date": "2026-06-03",
+    "assigned_to": "IT Team"
+  },
+  {
+    "ticket_id": "TKT-002",
+    "staff_name": "Angela Chen",
+    "issue_category": "Login",
+    "description": "Account locked, cannot log in to email or Google Classroom",
+    "status": "In Progress",
+    "created_date": "2026-06-04",
+    "assigned_to": "IT Team"
+  },
+  {
+    "ticket_id": "TKT-003",
+    "staff_name": "Maria Gonzalez",
+    "issue_category": "Hardware",
+    "description": "Projector not displaying screen from laptop in Room 110",
+    "status": "Resolved",
+    "created_date": "2026-06-01",
+    "assigned_to": "IT Team"
+  }
+]

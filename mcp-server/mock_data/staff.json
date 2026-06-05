@@ -1,0 +1,50 @@
+[
+  {
+    "display_name": "Sarah Johnson",
+    "email": "sarah.johnson@school.edu",
+    "license_status": "Licensed",
+    "account_status": "Active",
+    "last_login": "2026-06-03",
+    "department": "3rd Grade"
+  },
+  {
+    "display_name": "James Rivera",
+    "email": "james.rivera@school.edu",
+    "license_status": "Licensed",
+    "account_status": "Active",
+    "last_login": "2026-06-04",
+    "department": "Administration"
+  },
+  {
+    "display_name": "Maria Gonzalez",
+    "email": "maria.gonzalez@school.edu",
+    "license_status": "Licensed",
+    "account_status": "Active",
+    "last_login": "2026-06-02",
+    "department": "5th Grade"
+  },
+  {
+    "display_name": "Marcus Williams",
+    "email": "marcus.williams@school.edu",
+    "license_status": "Unlicensed",
+    "account_status": "Disabled",
+    "last_login": "2026-05-15",
+    "department": "PE"
+  },
+  {
+    "display_name": "Angela Chen",
+    "email": "angela.chen@school.edu",
+    "license_status": "Licensed",
+    "account_status": "Locked",
+    "last_login": "2026-06-01",
+    "department": "Special Education"
+  },
+  {
+    "display_name": "David Okafor",
+    "email": "david.okafor@school.edu",
+    "license_status": "Licensed",
+    "account_status": "Active",
+    "last_login": "2026-06-04",
+    "department": "Math"
+  }
+]

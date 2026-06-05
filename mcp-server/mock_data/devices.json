@@ -1,0 +1,50 @@
+[
+  {
+    "device_id": "CHR-001",
+    "serial": "5XJ9K2L",
+    "type": "Chromebook",
+    "status": "Active",
+    "assigned_to": "Sarah Johnson",
+    "location": "Room 204"
+  },
+  {
+    "device_id": "CHR-002",
+    "serial": "8MN4P7Q",
+    "type": "Chromebook",
+    "status": "Deprovisioned",
+    "assigned_to": "Unassigned",
+    "location": "Storage"
+  },
+  {
+    "device_id": "CHR-003",
+    "serial": "3KL7R9T",
+    "type": "Chromebook",
+    "status": "In Repair",
+    "assigned_to": "Marcus Williams",
+    "location": "IT Office"
+  },
+  {
+    "device_id": "MAC-001",
+    "serial": "C02XK1ZHJGH5",
+    "type": "MacBook",
+    "status": "Active",
+    "assigned_to": "James Rivera",
+    "location": "Admin Office"
+  },
+  {
+    "device_id": "CHR-004",
+    "serial": "2PQ8V5W",
+    "type": "Chromebook",
+    "status": "Active",
+    "assigned_to": "Maria Gonzalez",
+    "location": "Room 110"
+  },
+  {
+    "device_id": "CHR-005",
+    "serial": "7YH3N6D",
+    "type": "Chromebook",
+    "status": "Lost",
+    "assigned_to": "Unassigned",
+    "location": "Unknown"
+  }
+]
