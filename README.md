@@ -31,6 +31,8 @@ A full walkthrough script covering all four actions (user lookup → device look
 
 ## Architecture
 
+![EduDesk architecture diagram: Microsoft 365 Copilot declarative agent calling a custom AI Plugin (OpenAPI), which routes to a FastAPI MCP server backed by mock JSON data, returning results as Adaptive Cards](docs/architecture-diagram.svg)
+
 ```
 Microsoft 365 Copilot (declarative agent)
         │
