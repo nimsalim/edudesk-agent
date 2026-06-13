@@ -23,7 +23,7 @@ EduDesk is a **declarative agent** with an **API plugin** that calls a custom Fa
 
 Each action returns data through a **custom Adaptive Card**, so results render as clean, structured cards inside Copilot rather than raw text.
 
-## Demo
+## Demo video: https://youtu.be/9ZJTF4Z1WLQ
 
 ![EduDesk agent responding to "Get user Sarah Johnson" with a rendered Adaptive Card](docs/screenshot-demo.png)
 
