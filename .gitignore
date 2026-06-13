@@ -23,3 +23,6 @@ Thumbs.db
 
 # ngrok
 ngrok.yml
+
+# Local-only operational notes
+RUNBOOK.md

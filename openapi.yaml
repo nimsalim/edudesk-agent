@@ -4,8 +4,8 @@ info:
   description: Charter school IT helpdesk API for device lookups, staff account status, and ticket management.
   version: 1.0.0
 servers:
-  - url: https://exemption-sprain-charbroil.ngrok-free.dev
-    description: EduDesk MCP Server (ngrok)
+  - url: https://xdr1db0t-8000.use.devtunnels.ms
+    description: EduDesk MCP Server (VS Code Dev Tunnel)
 
 paths:
   /devices:
@@ -14,6 +14,13 @@ paths:
       summary: Look up device status
       description: Returns device information. Filter by serial number or assigned user.
       parameters:
+        - name: ngrok-skip-browser-warning
+          in: header
+          required: true
+          schema:
+            type: string
+            default: "true"
+          description: Always send this header with value "true" to bypass the ngrok interstitial page.
         - name: serial
           in: query
           required: false
@@ -44,6 +51,13 @@ paths:
       summary: Check staff account status
       description: Returns account status, license info, and last login for a staff member.
       parameters:
+        - name: ngrok-skip-browser-warning
+          in: header
+          required: true
+          schema:
+            type: string
+            default: "true"
+          description: Always send this header with value "true" to bypass the ngrok interstitial page.
         - name: name
           in: query
           required: false
@@ -74,6 +88,13 @@ paths:
       summary: List IT support tickets
       description: Returns open or recent IT tickets. Filter by status or staff name.
       parameters:
+        - name: ngrok-skip-browser-warning
+          in: header
+          required: true
+          schema:
+            type: string
+            default: "true"
+          description: Always send this header with value "true" to bypass the ngrok interstitial page.
         - name: status
           in: query
           required: false
@@ -98,8 +119,8 @@ paths:
                   $ref: "#/components/schemas/Ticket"
 
     post:
-      operationId: createTicket
-      summary: Submit a new IT support ticket
+      operationId: createTicketPost
+      summary: Submit a new IT support ticket (POST, not used by agent)
       description: Creates a new helpdesk ticket for an IT issue reported by staff.
       requestBody:
         required: true
@@ -107,6 +128,46 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/NewTicket"
+      responses:
+        "201":
+          description: Ticket created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Ticket"
+
+  /tickets/create:
+    get:
+      operationId: createTicket
+      summary: Submit a new IT support ticket
+      description: Creates a new helpdesk ticket for an IT issue reported by staff. Always call this when a staff member reports an unresolved issue.
+      parameters:
+        - name: ngrok-skip-browser-warning
+          in: header
+          required: true
+          schema:
+            type: string
+            default: "true"
+          description: Always send this header with value "true" to bypass the ngrok interstitial page.
+        - name: staff_name
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Name of the staff member reporting the issue
+        - name: issue_category
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [Connectivity, Login, Hardware, Software, Account, Other]
+          description: Category of the issue
+        - name: description
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Description of the issue
       responses:
         "201":
           description: Ticket created successfully

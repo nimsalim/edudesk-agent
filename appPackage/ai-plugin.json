@@ -10,7 +10,15 @@
     "functions": [
         {
             "name": "createTicket",
-            "description": "Creates a new helpdesk ticket for an IT issue reported by staff."
+            "description": "Creates a new helpdesk ticket for an IT issue reported by staff. Call this whenever a staff member reports an unresolved issue, with staff_name, issue_category, and description as query parameters.",
+            "capabilities": {
+                "response_semantics": {
+                    "data_path": "$",
+                    "static_template": {
+                        "file": "./adaptiveCards/createTicket.json"
+                    }
+                }
+            }
         },
         {
             "name": "getDevices",

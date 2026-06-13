@@ -4,8 +4,8 @@ info:
   description: 'Charter school IT helpdesk API for device lookups, staff account status, and ticket management.'
   version: 1.0.0
 servers:
-  - url: https://exemption-sprain-charbroil.ngrok-free.dev
-    description: EduDesk MCP Server (ngrok)
+  - url: https://xdr1db0t-8000.use.devtunnels.ms
+    description: EduDesk MCP Server (VS Code Dev Tunnel)
 paths:
   /devices:
     get:
@@ -181,9 +181,9 @@ paths:
                       type: string
                       example: IT Team
     post:
-      summary: Submit a new IT support ticket
+      summary: Submit a new IT support ticket (POST, not used by agent)
       description: Creates a new helpdesk ticket for an IT issue reported by staff.
-      operationId: createTicket
+      operationId: createTicketPost
       requestBody:
         content:
           application/json:
@@ -211,6 +211,82 @@ paths:
                   type: string
                   example: Chromebook won't connect to school WiFi
         required: true
+      responses:
+        '201':
+          description: Ticket created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ticket_id:
+                    type: string
+                    example: TKT-001
+                  staff_name:
+                    type: string
+                    example: Maria Gonzalez
+                  issue_category:
+                    enum:
+                      - Connectivity
+                      - Login
+                      - Hardware
+                      - Software
+                      - Account
+                      - Other
+                    type: string
+                    example: Connectivity
+                  description:
+                    type: string
+                    example: Chromebook won't connect to school WiFi
+                  status:
+                    enum:
+                      - Open
+                      - In Progress
+                      - Resolved
+                      - Closed
+                    type: string
+                    example: Open
+                  created_date:
+                    type: string
+                    format: date
+                    example: '2026-06-04'
+                  assigned_to:
+                    type: string
+                    example: IT Team
+  /tickets/create:
+    get:
+      summary: Submit a new IT support ticket
+      description: Creates a new helpdesk ticket for an IT issue reported by staff. Always call this when a staff member reports an unresolved issue that needs to be logged.
+      operationId: createTicket
+      parameters:
+        - name: staff_name
+          in: query
+          description: Name of the staff member reporting the issue
+          required: true
+          explode: false
+          schema:
+            type: string
+        - name: issue_category
+          in: query
+          description: Category of the issue
+          required: true
+          explode: false
+          schema:
+            enum:
+              - Connectivity
+              - Login
+              - Hardware
+              - Software
+              - Account
+              - Other
+            type: string
+        - name: description
+          in: query
+          description: Description of the issue
+          required: true
+          explode: false
+          schema:
+            type: string
       responses:
         '201':
           description: Ticket created successfully

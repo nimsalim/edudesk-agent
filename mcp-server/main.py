@@ -93,3 +93,23 @@ def create_ticket(ticket: dict):
     tickets.append(new_ticket)
     save_data("tickets.json", tickets)
     return new_ticket
+
+@app.get("/tickets/create", status_code=201)
+def create_ticket_get(
+    staff_name: str = Query(..., description="Name of the staff member reporting the issue"),
+    issue_category: str = Query(..., description="Issue category: Connectivity, Login, Hardware, Software, Account, or Other"),
+    description: str = Query(..., description="Description of the issue")
+):
+    tickets = load_data("tickets.json")
+    new_ticket = {
+        "ticket_id": f"TKT-{str(len(tickets) + 1).zfill(3)}",
+        "staff_name": staff_name,
+        "issue_category": issue_category,
+        "description": description,
+        "status": "Open",
+        "created_date": str(date.today()),
+        "assigned_to": "IT Team"
+    }
+    tickets.append(new_ticket)
+    save_data("tickets.json", tickets)
+    return new_ticket

@@ -5,24 +5,24 @@
   "body": [
     {
       "type": "Container",
-      "$data": "${$root}",
-      "separator": true,
-      "spacing": "medium",
       "items": [
         {
           "type": "TextBlock",
-          "text": "💻 ${type} — ${device_id}",
+          "text": "✅ Ticket Created",
           "weight": "bolder",
           "size": "medium",
-          "wrap": true
+          "color": "good"
         },
         {
           "type": "FactSet",
           "facts": [
-            { "title": "Serial", "value": "${serial}" },
+            { "title": "Ticket ID", "value": "${ticket_id}" },
+            { "title": "Staff", "value": "${staff_name}" },
+            { "title": "Category", "value": "${issue_category}" },
+            { "title": "Description", "value": "${description}" },
             { "title": "Status", "value": "${status}" },
             { "title": "Assigned To", "value": "${assigned_to}" },
-            { "title": "Location", "value": "${location}" }
+            { "title": "Created", "value": "${created_date}" }
           ]
         }
       ]

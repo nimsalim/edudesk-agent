@@ -25,5 +25,77 @@
     "status": "Resolved",
     "created_date": "2026-06-01",
     "assigned_to": "IT Team"
+  },
+  {
+    "ticket_id": "TKT-004",
+    "staff_name": "Test User",
+    "issue_category": "Hardware",
+    "description": "test ticket from curl",
+    "status": "Open",
+    "created_date": "2026-06-12",
+    "assigned_to": "IT Team"
+  },
+  {
+    "ticket_id": "TKT-005",
+    "staff_name": "John Smith",
+    "issue_category": "Connectivity",
+    "description": "Laptop not connecting to WiFi",
+    "status": "Open",
+    "created_date": "2026-06-12",
+    "assigned_to": "IT Team"
+  },
+  {
+    "ticket_id": "TKT-006",
+    "staff_name": "Test",
+    "issue_category": "Login",
+    "description": "test",
+    "status": "Open",
+    "created_date": "2026-06-13",
+    "assigned_to": "IT Team"
+  },
+  {
+    "ticket_id": "TKT-007",
+    "staff_name": "Staff Member",
+    "issue_category": "Connectivity",
+    "description": "Laptop will not connect to WiFi.",
+    "status": "Open",
+    "created_date": "2026-06-13",
+    "assigned_to": "IT Team"
+  },
+  {
+    "ticket_id": "TKT-008",
+    "staff_name": "Unknown",
+    "issue_category": "Hardware",
+    "description": "Request to review or re-enable Chromebook with serial 8MN4P7Q which is currently deprovisioned and in storage.",
+    "status": "Open",
+    "created_date": "2026-06-13",
+    "assigned_to": "IT Team"
+  },
+  {
+    "ticket_id": "TKT-009",
+    "staff_name": "Marcus Williams",
+    "issue_category": "Account",
+    "description": "Account is disabled and staff member cannot log into Google Classroom for PE class",
+    "status": "Open",
+    "created_date": "2026-06-13",
+    "assigned_to": "IT Team"
+  },
+  {
+    "ticket_id": "TKT-010",
+    "staff_name": "Marcus Williams",
+    "issue_category": "Account",
+    "description": "Account is disabled and the user cannot log into Google Classroom.",
+    "status": "Open",
+    "created_date": "2026-06-13",
+    "assigned_to": "IT Team"
+  },
+  {
+    "ticket_id": "TKT-011",
+    "staff_name": "James Rivera",
+    "issue_category": "Account",
+    "description": "Account is disabled and user cannot log into Google Classroom for PE class",
+    "status": "Open",
+    "created_date": "2026-06-13",
+    "assigned_to": "IT Team"
   }
 ]
