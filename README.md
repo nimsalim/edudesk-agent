@@ -1,78 +1,97 @@
-# Overview of the basic declarative agent with API plugin template
+# EduDesk
 
-## Build a basic declarative agent with API plugin
+**A Microsoft 365 Copilot declarative agent that acts as an IT helpdesk assistant for charter schools.**
 
-With the declarative agent, you can build a custom version of Copilot that can be used for specific scenarios, such as for specialized knowledge, implementing specific processes, or simply to save time by reusing a set of AI prompts. For example, a grocery shopping Copilot declarative agent can be used to create a grocery list based on a meal plan that you send to Copilot.
+Built for the Microsoft Agents League Hackathon / AI Skills Fest — Enterprise Agents track.
 
-You can extend declarative agents using plugins to retrieve data and execute tasks on external systems. A declarative agent can utilize multiple plugins at the same time.
+---
 
-![image](https://github.com/user-attachments/assets/9939972e-0449-410c-b237-d9d748cd6628)
+## What it does
+
+Small charter schools often run lean IT teams without dedicated helpdesk software. EduDesk brings device management, staff account lookups, and ticket tracking directly into Microsoft 365 Copilot — staff and IT can ask natural-language questions and get structured answers (and create tickets) without leaving the chat.
 
 
-## Get started with the template
+
+EduDesk is a **declarative agent** with an **API plugin** that calls a custom FastAPI backend (the "EduDesk IT Agent API") via four actions:
+
+| Action | What it does |
+| --- | --- |
+| `getUsers` | Look up a staff member's account status, license, department, and last login |
+| `getDevices` | Look up a device (Chromebook/laptop) by serial number, status, and assignment |
+| `getTickets` | Look up existing IT support tickets by ID or status |
+| `createTicket` | File a new IT support ticket on behalf of a staff member |
+
+Each action returns data through a **custom Adaptive Card**, so results render as clean, structured cards inside Copilot rather than raw text.
+
+## Demo
+
+![EduDesk agent responding to "Get user Sarah Johnson" with a rendered Adaptive Card](docs/screenshot-demo.png)
+
+A full walkthrough script covering all four actions (user lookup → device lookup → existing ticket lookup → new ticket creation) is in [`demo-script.md`](demo-script.md).
+
+## Architecture
+
+```
+Microsoft 365 Copilot (declarative agent)
+        │
+        ▼
+appPackage/ai-plugin.json  (OpenAPI plugin manifest, v2.4)
+        │  - 4 functions: getUsers, getDevices, getTickets, createTicket
+        │  - each bound to a static Adaptive Card template
+        ▼
+appPackage/apiSpecificationFile/openapi.yaml
+        │  - OpenAPI spec describing the 4 endpoints
+        ▼
+FastAPI MCP server (mcp-server/main.py)
+        │  - exposed via VS Code Dev Tunnel for Copilot to reach
+        ▼
+mcp-server/mock_data/*.json  (devices, users, tickets)
+```
+
+## Repo structure
+
+| Path | Contents |
+| --- | --- |
+| `appPackage/` | Declarative agent manifest, AI plugin manifest, OpenAPI spec, and Adaptive Card templates |
+| `appPackage/adaptiveCards/` | Custom Adaptive Cards for each of the 4 actions |
+| `mcp-server/` | FastAPI backend serving the IT helpdesk API and mock data |
+| `m365agents.yml` / `m365agents.local.yml` | Microsoft 365 Agents Toolkit project files (dev / local environments) |
+| `env/` | Environment configuration for the Agents Toolkit |
+| `evals/` | Sample evaluation prompts for the Copilot Agent Evaluations CLI |
+| `demo-script.md` | Narration script for the demo video |
+
+## Running locally
 
 > **Prerequisites**
->
-> To run this app template in your local dev machine, you will need:
->
-> - [Node.js](https://nodejs.org/), supported versions: 18, 20, 22
-> - A [Microsoft 365 account for development](https://docs.microsoft.com/microsoftteams/platform/toolkit/accounts).
-> - [Microsoft 365 Agents Toolkit Visual Studio Code Extension](https://aka.ms/teams-toolkit) version 5.0.0 and higher or [Microsoft 365 Agents Toolkit CLI](https://aka.ms/teamsfx-toolkit-cli)
-> - [Microsoft 365 Copilot license](https://learn.microsoft.com/microsoft-365-copilot/extensibility/prerequisites#prerequisites)
+> - [Node.js](https://nodejs.org/) (18, 20, or 22)
+> - Python 3.10+
+> - A [Microsoft 365 account for development](https://docs.microsoft.com/microsoftteams/platform/toolkit/accounts) with a Copilot license
+> - [Microsoft 365 Agents Toolkit](https://aka.ms/teams-toolkit) VS Code extension (v5+)
 
-1. First, select the Microsoft 365 Agents Toolkit icon on the left in the VS Code toolbar.
-2. In the Account section, sign in with your [Microsoft 365 account](https://docs.microsoft.com/microsoftteams/platform/toolkit/accounts) if you haven't already.
-3. Select `Preview Local in Copilot (Edge)` or `Preview Local in Copilot (Chrome)` from the launch configuration dropdown.
-4. Select your declarative agent from the `Copilot` app.
-5. Send a prompt.
+1. **Start the backend API**
 
+   ```bash
+   cd mcp-server
+   pip install -r requirements.txt
+   uvicorn main:app --reload --port 8000
+   ```
 
+2. **Expose it via a tunnel** (e.g. VS Code Dev Tunnel) and update the `url` in `appPackage/apiSpecificationFile/openapi.yaml` to match.
 
-## What's included in the template
+3. **Provision the agent** — in the Microsoft 365 Agents Toolkit panel, select the `local` environment and run **Teams: Provision**.
 
-| Folder       | Contents                                     |
-| ------------ | -------------------------------------------- |
-| `.vscode`    | VSCode files for debugging                   |
-| `appPackage` | Templates for the application manifest, the plugin manifest and the API specification |
-| `env`        | Environment files                            |
+4. **Open the agent in Copilot** and start chatting — try the prompts in `demo-script.md`.
 
-The following files can be customized and demonstrate an example implementation to get you started.
+## Example prompts
 
-| File                                 | Contents                                                                       |
-| ------------------------------------ | ------------------------------------------------------------------------------ |
-| `appPackage/declarativeCopilot.json` | Define the behaviour and configurations of the declarative agent.            |
-| `appPackage/manifest.json`           | application manifest that defines metadata for your declarative agent. |
+- "Get user Sarah Johnson"
+- "Get device 5XJ9K2L"
+- "Get TKT-001"
+- "Submit a ticket for Marcus Williams - his account is disabled and he can't log into Google Classroom for PE class"
 
-The following are Microsoft 365 Agents Toolkit specific project files. You can [visit a complete guide on Github](https://github.com/OfficeDev/TeamsFx/wiki/Teams-Toolkit-Visual-Studio-Code-v5-Guide#overview) to understand how Microsoft 365 Agents Toolkit works.
+## Tech stack
 
-| File                 | Contents                                                                                                                                  |
-| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `m365agents.yml`       | This is the main Microsoft 365 Agents Toolkit project file. The project file defines two primary things: Properties and configuration Stage definitions. |
-
-## Evaluating Agents
-
-Install the Microsoft 365 Copilot Agent Evaluations CLI (`@microsoft/m365-copilot-eval`) NPM package to test, measure, and improve the quality of your agent with structured evaluations and rich result reports with AI-based scoring.
-
-> Requires [Admin consent](https://github.com/microsoft/work-iq/blob/main/ADMIN-INSTRUCTIONS.md) at tenant level.
-
-1. Run `npm install -g @microsoft/m365-copilot-eval`
-2. Add the following environment variables. See [here](https://learn.microsoft.com/en-us/microsoft-365/copilot/extensibility/evaluations-cli-get-env-values) on how to get them.
-
-    ```
-    AZURE_AI_OPENAI_ENDPOINT=
-    AZURE_AI_API_KEY=
-    AZURE_AI_API_VERSION=
-    AZURE_AI_MODEL_NAME=
-    ```
-
-3. Run `runevals` or `runevals --env dev`
-
-A sample dataset `evals/prompts.json` is created in this project to help you get started right away. [Read more](https://learn.microsoft.com/en-us/microsoft-365/copilot/extensibility/evaluations-cli-overview).
-
-## Addition information and references
-
-- [Declarative agents for Microsoft 365](https://aka.ms/teams-toolkit-declarative-agent)
-- [Extend Microsoft 365 Copilot](https://aka.ms/teamsfx-copilot-plugin)
-- [Message extensions for Microsoft 365 Copilot](https://learn.microsoft.com/microsoft-365-copilot/extensibility/overview-message-extension-bot)
-- [Microsoft Copilot connectors for Microsoft 365 Copilot](https://learn.microsoft.com/microsoft-365-copilot/extensibility/overview-graph-connector)
-- [Microsoft 365 Copilot extensibility samples](https://learn.microsoft.com/microsoft-365-copilot/extensibility/samples)
+- Microsoft 365 Copilot declarative agents + AI plugin (OpenAPI v2.4)
+- Adaptive Cards 1.4
+- FastAPI (Python)
+- Microsoft 365 Agents Toolkit
